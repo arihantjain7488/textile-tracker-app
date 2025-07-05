@@ -37,6 +37,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Add this new setting right below ALLOWED_HOSTS
 CSRF_TRUSTED_ORIGINS = [
     'https://' + RENDER_EXTERNAL_HOSTNAME,
+    "https://textile-frontend-snbx.onrender.com"
 ]
 
 
@@ -139,6 +140,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://textile-frontend-snbx.onrender.com",
 ]
 
 # Static files (CSS, JavaScript, Images)
