@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, TextField, Button, Box, Paper } from '@mui/material';
 import axios from 'axios';
 import { useNotifier } from '../context/NotificationContext';
+import { API_URL } from '../apiConfig';
 
 const InwardPage = () => {
   const [lotNo, setLotNo] = useState('');
@@ -21,7 +22,7 @@ const InwardPage = () => {
     };
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/lots/', lotData);
+      await axios.post(`${API_URL}/api/lots/`, lotData);
       showNotification('Lot created successfully!', 'success');
       navigate('/');
     } catch (error) {

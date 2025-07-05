@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; // This line is now fixed
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import axios from 'axios';
+import { API_URL } from '../apiConfig';
 
 const UpdateBatchModal = ({ open, onClose, onUpdateSuccess, batch }) => {
   const [processes, setProcesses] = useState([]);
@@ -11,9 +12,9 @@ const UpdateBatchModal = ({ open, onClose, onUpdateSuccess, batch }) => {
   // Fetch dropdown data when the modal opens
   useEffect(() => {
     if (open) {
-      axios.get('http://127.0.0.1:8000/api/processes/').then(res => setProcesses(res.data));
-      axios.get('http://127.0.0.1:8000/api/machines/').then(res => setMachines(res.data));
-      axios.get('http://127.0.0.1:8000/api/users/').then(res => setOperators(res.data.filter(u => u.role === 'OPERATOR')));
+      axios.get(`${API_URL}/api/processes/`).then(res => setProcesses(res.data));
+      axios.get(`${API_URL}/api/machines/`).then(res => setMachines(res.data));
+      axios.get(`${API_URL}/api/users/`).then(res => setOperators(res.data.filter(u => u.role === 'OPERATOR')));
 
       if (batch) {
         setFormData({
@@ -40,7 +41,7 @@ const UpdateBatchModal = ({ open, onClose, onUpdateSuccess, batch }) => {
     }
 
     try {
-      await axios.patch(`http://127.0.0.1:8000/api/batches/${batch.id}/`, dataToSubmit);
+      await axios.patch(`${API_URL}/api/batches/${batch.id}/`, dataToSubmit);
       onUpdateSuccess();
     } catch (error) {
       console.error("Failed to update batch", error);

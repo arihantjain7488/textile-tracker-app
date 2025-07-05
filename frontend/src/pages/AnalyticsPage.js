@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Paper, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import axios from 'axios';
+import { API_URL } from '../apiConfig';
 
 const AnalyticsPage = () => {
   const [analytics, setAnalytics] = useState(null);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/analytics/')
+    axios.get(`${API_URL}/api/analytics/`)
       .then(res => setAnalytics(res.data))
       .catch(err => console.error("Failed to fetch analytics", err));
   }, []);

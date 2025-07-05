@@ -8,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import UpdateBatchModal from '../components/UpdateBatchModal'; // Import the modal
 import { useNotifier } from '../context/NotificationContext';
+import { API_URL } from '../apiConfig';
 
 const LotDetailPage = () => {
   const { showNotification } = useNotifier();
@@ -23,7 +24,7 @@ const LotDetailPage = () => {
 
   const fetchLotDetails = useCallback(async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/lots/${lotId}/`);
+      const response = await axios.get(`${API_URL}/api/lots/`);
       setLot(response.data);
     } catch (error) {
       console.error("Error fetching lot details!", error);

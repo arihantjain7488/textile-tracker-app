@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Typography, Card, CardContent, Grid, CardActionArea } from '@mui/material';
 import axios from 'axios';
+import { API_URL } from '../apiConfig';
 
 const DashboardPage = () => {
   const [lots, setLots] = useState([]);
@@ -9,7 +10,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchLots = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/lots/');
+        const response = await axios.get(`${API_URL}/api/lots/`);
         setLots(response.data);
       } catch (error) {
         console.error("There was an error fetching the lots!", error);
