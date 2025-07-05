@@ -39,7 +39,7 @@ const LotDetailPage = () => {
     event.preventDefault();
     const batchData = { lot: lotId, batch_no: batchNo, meters: batchMeters };
     try {
-      await axios.post('http://127.0.0.1:8000/api/batches/', batchData);
+      await axios.post(`${API_URL}/api/batches/`, batchData);
       showNotification('Batch created successfully!');
       setBatchNo('');
       setBatchMeters('');
