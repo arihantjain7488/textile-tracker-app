@@ -34,6 +34,12 @@ RENDER_EXTERNAL_URL = os.environ.get('RENDER_EXTERNAL_URL')
 if RENDER_EXTERNAL_URL:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_URL.split("://")[1])
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://textile-frontend-snbx.onrender.com",
+]
+if RENDER_EXTERNAL_URL:
+    CSRF_TRUSTED_ORIGINS.append(RENDER_EXTERNAL_URL)
+
 # Add this new setting right below ALLOWED_HOSTS
 CSRF_TRUSTED_ORIGINS = [
     'https://' + RENDER_EXTERNAL_HOSTNAME,
