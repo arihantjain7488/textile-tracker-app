@@ -2,34 +2,32 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Typography, Paper, Box, List, ListItem, ListItemText,
-  Divider, TextField, Button, Grid, IconButton
+  Divider, TextField, Button, Grid
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
-import UpdateBatchModal from '../components/UpdateBatchModal'; // Import the modal
-import { useNotifier } from '../context/NotificationContext';
 import { API_URL } from '../apiConfig';
+import UpdateBatchModal from '../components/UpdateBatchModal';
+import { useNotifier } from '../context/NotificationContext';
 
 const LotDetailPage = () => {
-  const { showNotification } = useNotifier();
   const [lot, setLot] = useState(null);
   const { lotId } = useParams();
+  const { showNotification } = useNotifier();
 
   const [batchNo, setBatchNo] = useState('');
   const [batchMeters, setBatchMeters] = useState('');
-
-  // State for the modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingBatch, setEditingBatch] = useState(null);
 
   const fetchLotDetails = useCallback(async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/lots/`);
+      const response = await axios.get(`${API_URL}/api/lots/${lotId}/`);
       setLot(response.data);
     } catch (error) {
       console.error("Error fetching lot details!", error);
+      showNotification('Could not load lot details.', 'error');
     }
-  }, [lotId]);
+  }, [lotId, showNotification]);
 
   useEffect(() => {
     fetchLotDetails();
@@ -62,18 +60,17 @@ const LotDetailPage = () => {
 
   const handleUpdateSuccess = () => {
     handleCloseModal();
-    fetchLotDetails(); // Refresh data after successful update
+    fetchLotDetails();
     showNotification("Batch updated successfully!");
   };
 
   if (!lot) {
     return <Typography>Loading...</Typography>;
   }
-console.log('Lot data received:', lot);
+
   return (
     <>
       <Grid container spacing={4}>
-        {/* Lot Details & Create Batch Sections (no changes here) */}
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 3 }}>
             <Typography variant="h4" gutterBottom>Lot: {lot.lot_no}</Typography>
@@ -81,6 +78,7 @@ console.log('Lot data received:', lot);
             <Typography>Initial Meters: {lot.initial_meters}</Typography>
           </Paper>
         </Grid>
+
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 3 }}>
             <Typography variant="h5" gutterBottom>Create New Batch</Typography>
@@ -92,7 +90,6 @@ console.log('Lot data received:', lot);
           </Paper>
         </Grid>
 
-        {/* Existing Batches List */}
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: 3 }}>
             <Typography variant="h5" gutterBottom>Existing Batches</Typography>
@@ -122,8 +119,7 @@ console.log('Lot data received:', lot);
           </Paper>
         </Grid>
       </Grid>
-      
-      {/* The Modal for updating */}
+
       {editingBatch && (
         <UpdateBatchModal
           open={isModalOpen}
