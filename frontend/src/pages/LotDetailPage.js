@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Typography, Paper, Box, List, ListItem, ListItemText,
-  Divider, TextField, Button, Grid
+  Divider, TextField, Button, Grid, IconButton
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit'; 
 import axios from 'axios';
 import { API_URL } from '../apiConfig';
 import UpdateBatchModal from '../components/UpdateBatchModal';
