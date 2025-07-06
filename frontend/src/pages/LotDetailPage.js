@@ -69,7 +69,7 @@ const LotDetailPage = () => {
   if (!lot) {
     return <Typography>Loading...</Typography>;
   }
-
+console.log('Lot data received:', lot);
   return (
     <>
       <Grid container spacing={4}>
