@@ -40,13 +40,6 @@ CSRF_TRUSTED_ORIGINS = [
 if RENDER_EXTERNAL_URL:
     CSRF_TRUSTED_ORIGINS.append(RENDER_EXTERNAL_URL)
 
-# Add this new setting right below ALLOWED_HOSTS
-CSRF_TRUSTED_ORIGINS = [
-    'https://' + RENDER_EXTERNAL_HOSTNAME,
-    "https://textile-frontend-snbx.onrender.com"
-]
-
-
 # Application definition
 
 INSTALLED_APPS = [
